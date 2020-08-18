@@ -15,8 +15,7 @@ function AgileSprintClient(jiraClient) {
    *
    * @method moveSprintIssues
    * @memberOf AgileSprintClient#
-   * @param {Object} opts The issue data in the form of POST body to the
-   *   Jira API.
+   * @param {Object} opts The issue data in the form of POST body to the Jira API.
    * @param {string} [opts.sprintId] The sprint id.
    * @param [callback] Called when the sprint has been retrieved.
    * @return {Promise} Resolved when the sprint has been retrieved.
@@ -24,11 +23,11 @@ function AgileSprintClient(jiraClient) {
   this.moveSprintIssues = function (opts, callback) {
     const { sprintId, body } = opts
 
-    let options = {
+    const options = {
       uri: this.jiraClient.buildAgileURL('/sprint/' + sprintId + '/issue'),
       method: 'POST',
       headers: {
-          'Content-Type': 'application/json'
+        'Content-Type': 'application/json'
       },
       body: body
     };

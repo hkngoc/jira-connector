@@ -1,18 +1,37 @@
 {
-  "name": "jira-connector",
+  "name": "@hkngoc/jira-connector",
   "version": "1.0.3",
+  "main": "dist/jira-connector.cjs.js",
+  "module": "dist/jira-connector.esm.js",
   "browser": "dist/jira-connector.umd.js",
   "devDependencies": {
+    "@babel/core": "^7.11.1",
+    "@babel/preset-env": "^7.11.0",
     "@rollup/plugin-commonjs": "^11.0.1",
     "@rollup/plugin-node-resolve": "^7.0.0",
-    "rollup": "^1.29.0",
+    "cross-env": "^7.0.2",
+    "rollup": "^1.32.1",
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-serve": "^1.0.3",
     "rollup-plugin-terser": "^6.1.0"
   },
   "scripts": {
-    "build": "rollup -c",
-    "dev": "rollup -c -w"
+    "start": "cross-env NODE_ENV=dev-server rollup -c -w",
+    "build": "cross-env NODE_ENV=production rollup -c",
+    "dev": "cross-env NODE_ENV=development rollup -c -w"
   },
   "files": [
     "dist"
-  ]
+  ],
+  "description": "Small jira-connector wrapper for Lime-maker",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hkngoc/jira-connector.git"
+  },
+  "author": "hkngoc",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hkngoc/jira-connector/issues"
+  },
+  "homepage": "https://github.com/hkngoc/jira-connector#readme"
 }
