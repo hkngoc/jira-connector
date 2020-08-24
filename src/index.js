@@ -8,6 +8,7 @@ const project = require('./api/project');
 const search = require('./api/search');
 const sprint = require('./api/sprint');
 const user = require('./api/user');
+const version = require('./api/version');
 
 const JiraClient = function (config) {
   if (!config.host) {
@@ -34,6 +35,7 @@ const JiraClient = function (config) {
   this.search   = new search(this);
   this.sprint   = new sprint(this);
   this.user     = new user(this);
+  this.version  = new version(this);
 };
 
 (function() {
