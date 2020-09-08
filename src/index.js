@@ -3,7 +3,6 @@
 const auth = require('./api/auth');
 const board = require('./api/board');
 const issue = require('./api/issue');
-const issue = require('./api/issue');
 const issueLinkType = require('./api/issueLinkType');
 const priority = require('./api/priority');
 const project = require('./api/project');
