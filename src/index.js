@@ -3,6 +3,8 @@
 const auth = require('./api/auth');
 const board = require('./api/board');
 const issue = require('./api/issue');
+const issue = require('./api/issue');
+const issueLinkType = require('./api/issueLinkType');
 const priority = require('./api/priority');
 const project = require('./api/project');
 const search = require('./api/search');
@@ -27,15 +29,16 @@ const JiraClient = function (config) {
   this.promise           = config.promise || Promise;
   this.requestLib        = config.requestLib;
 
-  this.auth     = new auth(this);
-  this.board    = new board(this);
-  this.issue    = new issue(this);
-  this.priority = new priority(this);
-  this.project  = new project(this);
-  this.search   = new search(this);
-  this.sprint   = new sprint(this);
-  this.user     = new user(this);
-  this.version  = new version(this);
+  this.auth          = new auth(this);
+  this.board         = new board(this);
+  this.issue         = new issue(this);
+  this.issueLinkType = new issueLinkType(this);
+  this.priority      = new priority(this);
+  this.project       = new project(this);
+  this.search        = new search(this);
+  this.sprint        = new sprint(this);
+  this.user          = new user(this);
+  this.version       = new version(this);
 };
 
 (function() {
