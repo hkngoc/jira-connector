@@ -84,10 +84,10 @@ function SearchClient(jiraClient) {
     if (opts.expand) {
       search_options.expand = opts.expand;
     }
-    if (opts.validateQuery) {
+    if ("validateQuery" in opts) {
       search_options.validateQuery = opts.validateQuery;
     }
-    if (opts.fieldsByKeys) {
+    if ("fieldsByKeys" in opts) {
       search_options.fieldsByKeys = opts.fieldsByKeys;
     }
 
