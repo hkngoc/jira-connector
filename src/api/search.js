@@ -84,6 +84,12 @@ function SearchClient(jiraClient) {
     if (opts.expand) {
       search_options.expand = opts.expand;
     }
+    if (opts.validateQuery) {
+      search_options.validateQuery = opts.validateQuery;
+    }
+    if (opts.fieldsByKeys) {
+      search_options.fieldsByKeys = opts.fieldsByKeys;
+    }
 
     if (opts.method == 'POST') {
       options.body = search_options;
