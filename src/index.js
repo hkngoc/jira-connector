@@ -1,15 +1,15 @@
 "use strict";
 
-const auth = require('./api/auth');
-const board = require('./api/board');
-const issue = require('./api/issue');
+const auth          = require('./api/auth');
+const board         = require('./api/board');
+const issue         = require('./api/issue');
 const issueLinkType = require('./api/issueLinkType');
-const priority = require('./api/priority');
-const project = require('./api/project');
-const search = require('./api/search');
-const sprint = require('./api/sprint');
-const user = require('./api/user');
-const version = require('./api/version');
+const priority      = require('./api/priority');
+const project       = require('./api/project');
+const search        = require('./api/search');
+const sprint        = require('./api/sprint');
+const user          = require('./api/user');
+const version       = require('./api/version');
 
 const JiraClient = function (config) {
   if (!config.host) {
@@ -26,7 +26,6 @@ const JiraClient = function (config) {
   this.authApiVersion    = '1';
   this.webhookApiVersion = '1.0';
   this.promise           = config.promise || Promise;
-  this.requestLib        = config.requestLib;
 
   this.auth          = new auth(this);
   this.board         = new board(this);
@@ -71,43 +70,35 @@ const JiraClient = function (config) {
     return decodeURIComponent(requestUrl);
   };
 
-  this.makeRequest = function(options, callback) {
-    if (this.requestLib) {
-      return this.requestLib(options, callback);
-    }
-
-    const { method } = options;
-    let opts = {
-      method: method
-    }
-
-    if (options.headers) {
-      opts.headers = options.headers;
+  this.makeRequest = async function(options, callback) {
+    const opts = {
+      method: options.method || 'GET',
+      uri: options.uri
     }
 
     if (options.qs) {
-      let query = Object.keys(options.qs)
+      const query = Object.keys(options.qs)
         .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(options.qs[k]))
         .join('&');
-      options.uri = `${options.uri}?${query}`;
+      opts.uri = `${options.uri}?${query}`;
     }
 
     if (options.body) {
       opts.body = JSON.stringify(options.body);
     }
 
-    const { uri, parser } = options;
+    const { uri, ...rest } = opts;
+    const { parser } = options;
 
-    if (callback) {
-      return fetch(uri, opts)
-        .then(response => parser ? parser(response) : response.json())
-        .then(result => callback(null, result))
-        .catch(e => callback(e));
-    } else {
-      return fetch(uri, opts)
-        .then(response => parser ? parser(response) : response.json())
-        .then(result => Promise.resolve(result))
-        .catch(e => Promise.reject(e));
+    try {
+      const response = await fetch(uri, rest);
+      const json = parser ? (await parser(response)) : (await response.json());
+      if (callback) {
+        callback(json);
+      }
+      return Promise.resolve(json);
+    } catch (e) {
+      return Promise.reject(e);
     }
   };
 }).call(JiraClient.prototype);
