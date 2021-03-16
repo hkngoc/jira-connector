@@ -352,7 +352,7 @@ function IssueClient(jiraClient) {
       options.qs = qs;
     }
     if (body && method != "GET" && method != "PUT") {
-      qs.body = body;
+      options.body = body;
     }
 
     return options;
