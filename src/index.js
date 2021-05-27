@@ -83,6 +83,10 @@ const JiraClient = function (config) {
       opts.uri = `${options.uri}?${query}`;
     }
 
+    if (options.headers) {
+      opts.headers = options.headers;
+    }
+
     if (options.body) {
       opts.body = JSON.stringify(options.body);
     }
